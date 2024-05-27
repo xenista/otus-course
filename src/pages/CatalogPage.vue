@@ -31,11 +31,12 @@ setTimeout(() => {
         </v-skeleton-loader>
       </v-col>
     </v-row >
-    <v-row v-else>
+    <v-row v-else-if="!loading && products.length > 0">
       <v-col cols="4" v-for="product in products" :key="product.id">
         <product-card :product="product" :loading="loading"/>
       </v-col>
     </v-row>
+    <p v-else>Товаров нет</p>
   </v-container>
 </template>
 
