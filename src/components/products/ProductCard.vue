@@ -1,14 +1,11 @@
 <script setup>
     defineProps({
-        product: Object,
-        loading: Boolean
+        product: Object
     })
 </script>
 
 <template>
     <v-card
-    :disabled="loading"
-    :loading="loading"
     class="mx-auto product-card"
     max-width="374"
   >

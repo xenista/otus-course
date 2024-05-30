@@ -1,22 +1,24 @@
 <script setup>
-import ProductCard from '../components/products/ProductCard.vue'
+import ProductCard from '@/components/products/ProductCard.vue'
+import { fetchProducts } from '@/services/productService'
 import { ref } from "vue"
+
 const loading = ref(true)
 const products = ref([])
 
-async function fetchProducts() {
+async function loadProducts() {
   try {
     loading.value = true;
-    const response = await fetch('http://localhost:3000/products');
-    products.value = await response.json();
-    loading.value = false
+    products.value = await fetchProducts();
   } catch (error) {
     console.error(error);
+  }
+  finally {
     loading.value = false
   }
 }
 setTimeout(() => {
-  fetchProducts()
+  loadProducts()
 }, 2000)
 
 
@@ -33,7 +35,7 @@ setTimeout(() => {
     </v-row >
     <v-row v-else-if="!loading && products.length > 0">
       <v-col cols="4" v-for="product in products" :key="product.id">
-        <product-card :product="product" :loading="loading"/>
+        <product-card :product="product"/>
       </v-col>
     </v-row>
     <p v-else>Товаров нет</p>
