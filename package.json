@@ -9,11 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vee-validate/yup": "^4.13.0",
     "json-server": "^0.17.4",
+    "vee-validate": "^4.13.0",
     "vue": "^3.4.21",
+    "vue-the-mask": "^0.11.1",
     "vuetify": "^3.6.7"
   },
   "devDependencies": {
+    "@types/vue-the-mask": "^0.11.5",
     "@vitejs/plugin-vue": "^5.0.4",
     "vite": "^5.2.0"
   }

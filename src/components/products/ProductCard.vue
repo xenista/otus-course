@@ -2,6 +2,7 @@
     defineProps({
         product: Object
     })
+   const emit = defineEmits(['openModal'])
 </script>
 
 <template>
@@ -9,14 +10,6 @@
     class="mx-auto product-card"
     max-width="374"
   >
-    <template v-slot:loader="{ isActive }">
-      <v-progress-linear
-        :active="isActive"
-        color="deep-purple"
-        height="4"
-        indeterminate
-      ></v-progress-linear>
-    </template>
 
     <v-img
       height="250"
@@ -28,7 +21,7 @@
       <v-card-title>{{ product.title }}</v-card-title>
 
       <v-card-subtitle>
-        <span class="me-1">{{ product.category}}</span>
+        <span class="me-1">{{ product.category?.title}}</span>
 
         <v-icon
           color="error"
@@ -44,7 +37,7 @@
         class="mx-0"
       >
         <v-rating
-          :model-value="product.rating.rate"
+          :model-value="product.rating?.rate"
           color="amber"
           density="compact"
           size="small"
@@ -52,8 +45,11 @@
           readonly
         ></v-rating>
 
-        <div class="text-grey ms-4">
-          {{product.rating.rate}} ({{product.rating.count}})
+        <div class="text-grey ms-4" v-if="product.rating">
+          {{product.rating?.rate}} ({{product.rating?.count}})
+        </div>
+        <div class="text-grey ms-4" v-else>
+          Нет голосов
         </div>
       </v-row>
 
@@ -64,13 +60,19 @@
     </v-card-text>
 
 
-    <v-card-actions class="mt-auto">
+        <v-card-actions class="mt-auto" >
+         <v-btn
+          color="deep-purple-lighten-1"
+          text="Заказ в 1 клик" 
+          @click="emit('openModal', product)"
+        ></v-btn>
       <v-btn
+        icon="mdi-cart"
+        class="ms-auto"
         color="deep-purple-lighten-2"
         text="В корзину"
-        block
-        border
       ></v-btn>
+   
     </v-card-actions>
     </v-card>
 </template>
